@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 秋招企业名录
+model Company {
+  id          String       @id @default(cuid())
+  name        String       @unique // 企业简称，如「小米集团」
+  fullName    String? // 企业全称
+  industry    String // 所属行业，如「消费电子」
+  city        String // 主要工作城市，如「深圳 / 北京」
+  size        String // 人员规模
+  funding     String // 融资阶段 / 上市情况
+  summary     String // 一句话亮点
+  description String // 企业简介（150字左右）
+  positions   String // 热招方向，逗号分隔
+  tags        String // 特征标签，逗号分隔
+  recruitUrl  String // 招聘官网
+  sourceType  String // 来源类型：公众号 / 服务号 / 官网 / 招聘平台
+  sourceName  String // 来源名称，如「小米招聘」
+  publishedAt DateTime // 放出日期（批次）
+  deadline    DateTime? // 秋招网申截止日期（如已知）
+  deadlineConfirmedAt DateTime? // 用户在招聘官网亲自核对截止时间的时间戳（null=仍是情报整理值，未亲核）
+  urlStatus   String?   // 招聘官网自动探测结果：ok（可达）/ soft（反爬或跳转，域名活着）/ fail（不可达，情报慎信）
+  urlCheckedAt DateTime? // 最近一次官网探测时间（fail 也写，避免反复重试同一家）
+  season      String     @default("秋招") // 招聘季：秋招 / 春招 / 社招
+  starred     Boolean    @default(false)
+  pinned      Boolean    @default(false) // 清单置顶（仅星标清单内排序生效）
+  verified    Boolean    @default(false) // true=已核目录 false=AI情报待核
+  hidden      Boolean    @default(false) // 已忽略（不再出现在今日/名录，可在名录「含已忽略」中找回）
+  createdAt   DateTime   @default(now())
+  applications Application[]
+}
+
+// 投递记录（同一企业可有多条，每条对应一个岗位）
+model Application {
+  id        String   @id @default(cuid())
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  position  String // 意向岗位
+  status    String   @default("已投递") // 意向中 / 已投递 / 笔试中 / 面试中 / Offer / 暂告段落
+  channel   String? // 投递渠道
+  notes     String?
+  deadline  DateTime? // 下一个关键节点（网申截止 / 笔试 / 面试…）
+  history   String   @default("[]") // 流转轨迹 JSON：[{ "status": "已投递", "at": "ISO时间" }]
+  appliedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 轻量键值存储（调度器记录上次执行日等）
+model Setting {
+  key   String @id
+  value String
+}
+
+// 饭来用户（演示环境：邮箱验证码 / 智谱账号 / 微信扫码三种登录）
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique // 邮箱（微信扫码登录时生成虚拟邮箱 wx-{qrId}@fanlai.local）
+  name         String    // 昵称（默认取邮箱前缀 / 微信昵称「饭友」）
+  provider     String    // 注册方式：email / zhipu / wechat
+  avatar       String    @default("🍚") // 头像 emoji
+  industries   String    @default("[]") // 目标行业 JSON 数组（定制推送侧重）
+  pushTime     String    @default("08:00") // 每日推送时间 08:00 / 12:00 / 20:00
+  channelEmail Boolean   @default(true) // 推送渠道：邮件
+  channelWechat Boolean  @default(false) // 推送渠道：微信服务号
+  onboarded    Boolean   @default(false) // 是否完成过「定制我的饭来bot」引导
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique // httpOnly cookie 里存的随机 token
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// 搜狗微信直搜管道的原始文章池（weixin.sogou.com 文章搜索，每天随主同步自动抓取）
+// —— 与 Company 无外键（matchedCompanyId 仅存命中企业 id），seed / 清库互不影响
+model SourceArticle {
+  id               String    @id @default(cuid())
+  sogouKey         String    @unique // sha1(账号名 + 标题) 去重键
+  title            String
+  account          String // 公众号名称
+  url              String // 搜狗跳转链绝对URL（带 token 有时效，仅供近期查看跳转）
+  publishedAt      DateTime? // 从 timeConvert 时间戳解析的文章发布时间
+  query            String // 命中的搜索词
+  matchedCompanyId String? // 命中的企业 id（多篇命中取首个，可空）
+  matchedNames     String? // 命中的企业名逗号分隔（一篇文章可能提多家）
+  status           String    @default("new") // new=未命中企业（留待人工）/ matched=已命中 / ignored=人工忽略
+  fetchedAt        DateTime  @default(now())
+}

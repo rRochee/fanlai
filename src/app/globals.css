@@ -1,0 +1,979 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans), "Noto Sans SC", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.5rem;
+  /* ── 饭来 · 蓝调编辑部（Blue Editorial）──
+     墨蓝做墨水、淡蓝做纸面、天蓝/红/蓝绿做声部。
+     大字、大块面、大留白：奢侈品牌刊头的印刷骨架。 */
+  --background: #eef4fb;
+  --foreground: #0c2340;
+  /* 内容面板毛玻璃化：更低不透明度 + backdrop-blur（.bg-card 全局规则），
+     海浪动效透过卡片清晰可见，文字依然可读；对话框走 --popover 保持高不透明 */
+  --card: rgba(255, 255, 255, 0.68);
+  --card-foreground: #0c2340;
+  --popover: #ffffff;
+  --popover-foreground: #0c2340;
+  --primary: #123c6d;
+  --primary-foreground: #f2f7fd;
+  --secondary: #e2ecf7;
+  --secondary-foreground: #0c2340;
+  --muted: #e2ecf7;
+  --muted-foreground: #2b425c;
+  --accent: #d9e9f9;
+  --accent-foreground: #123c6d;
+  --destructive: #c02f22;
+  --border: #c2d4e6;
+  --input: #b9cde2;
+  --ring: #123c6d;
+  --chart-1: #123c6d;
+  --chart-2: #2e9bd6;
+  --chart-3: #d8362a;
+  --chart-4: #0d8a80;
+  --chart-5: #7aa5d2;
+  --sidebar: #eef4fb;
+  --sidebar-foreground: #0c2340;
+  --sidebar-primary: #123c6d;
+  --sidebar-primary-foreground: #f2f7fd;
+  --sidebar-accent: #e2ecf7;
+  --sidebar-accent-foreground: #0c2340;
+  --sidebar-border: #cddcec;
+  --sidebar-ring: #123c6d;
+
+  /* 饭碗吉祥物：米饭暖白与谷粒线 */
+  --bowl-rice: #fbf6e9;
+  --bowl-rice-line: #8d9db3;
+
+  /* ── 品牌色板：用户点名的色系 ──
+     crimson 红 = 今日饭来 / 上新 / CTA
+     sky 天蓝 = 企业名录 / 链接
+     teal 蓝绿 = 投递看板 / 成长态
+     powder 淡蓝 = 我的清单
+     navy 墨蓝 = 求职洞察 / 大色块 */
+  --crimson: #d8362a;
+  --crimson-deep: #b02a20;
+  --crimson-soft: #fbe3df;
+  --sky: #1e88c7;
+  --sky-deep: #16699b;
+  --sky-soft: #dcedf9;
+  --teal: #0d8a80;
+  --teal-deep: #0a6b63;
+  --teal-soft: #d7efec;
+  --powder: #4f7fb5;
+  --powder-soft: #e0ebf7;
+  --navy-block: #0e2a52;
+
+  /* 旧柿橘引用兼容（bowl 蒸汽 / 老组件），统一映射到绯红 */
+  --persimmon: #d8362a;
+  --persimmon-ink: #b02a20;
+  --persimmon-soft: #fbe3df;
+  --amber: #9a6b1f;
+  --amber-ink: #7a5215;
+  --amber-soft: #f6ecd7;
+}
+
+.dark {
+  --background: #081a30;
+  --foreground: #dfe9f5;
+  /* 内容面板毛玻璃化（暗色）：海浪视频从卡片下透出 */
+  --card: rgba(13, 37, 64, 0.74);
+  --card-foreground: #dfe9f5;
+  --popover: #0d2540;
+  --popover-foreground: #dfe9f5;
+  --primary: #7fb3e8;
+  --primary-foreground: #07172b;
+  --secondary: #12294a;
+  --secondary-foreground: #dfe9f5;
+  --muted: #12294a;
+  --muted-foreground: #9db4d1;
+  --accent: #16304f;
+  --accent-foreground: #b7d2ef;
+  --destructive: #e5584a;
+  --border: #1d3a5f;
+  --input: #294a73;
+  --ring: #7fb3e8;
+  --chart-1: #7fb3e8;
+  --chart-2: #5cb8e8;
+  --chart-3: #ef6a5a;
+  --chart-4: #2fb3a7;
+  --chart-5: #8fb4d9;
+  --sidebar: #081a30;
+  --sidebar-foreground: #dfe9f5;
+  --sidebar-primary: #7fb3e8;
+  --sidebar-primary-foreground: #07172b;
+  --sidebar-accent: #12294a;
+  --sidebar-accent-foreground: #dfe9f5;
+  --sidebar-border: #1d3a5f;
+  --sidebar-ring: #7fb3e8;
+
+  --bowl-rice: #e9e1c8;
+  --bowl-rice-line: #5d7089;
+
+  --crimson: #ef6a5a;
+  --crimson-deep: #f0836f;
+  --crimson-soft: #3a1a18;
+  --sky: #5cb8e8;
+  --sky-deep: #83cbf0;
+  --sky-soft: #10314f;
+  --teal: #2fb3a7;
+  --teal-deep: #55c7bc;
+  --teal-soft: #0e3331;
+  --powder: #8fb4d9;
+  --powder-soft: #16304f;
+  --navy-block: #0a2138;
+
+  --persimmon: #ef6a5a;
+  --persimmon-ink: #f0836f;
+  --persimmon-soft: #3a1a18;
+  --amber: #d9a44e;
+  --amber-ink: #e4b668;
+  --amber-soft: #33270f;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* 淡蓝纸面上的天蓝氛围光 + 页尾一角绯红，像印刷品的落墨 */
+    background-image:
+      radial-gradient(120% 520px at 50% -140px, rgba(30, 136, 199, 0.10), transparent 72%),
+      radial-gradient(760px 360px at 94% 102%, rgba(216, 54, 42, 0.045), transparent 74%);
+    background-repeat: no-repeat;
+    hanging-punctuation: first allow-end;
+  }
+  /* 统一键盘焦点环 */
+  :focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ring) 62%, transparent);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in srgb, #1e88c7 24%, transparent);
+  }
+  .dark body {
+    background-image:
+      radial-gradient(120% 520px at 50% -140px, rgba(92, 184, 232, 0.08), transparent 72%),
+      radial-gradient(760px 360px at 94% 102%, rgba(239, 106, 90, 0.05), transparent 74%);
+  }
+  .dark ::selection {
+    background: color-mix(in srgb, #5cb8e8 30%, transparent);
+  }
+}
+
+/* 展示字体：粗黑体大标（弃用宋体系）——奢侈品牌官网中文版的现代粗黑排版，
+   字重对比拉开层级，屏幕上比衬线更清晰锐利 */
+.font-display {
+  font-family: "Noto Sans SC", "PingFang SC", "HarmonyOS Sans SC", "Source Han Sans SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ── 蓝调编辑部 · 编辑排版系统 ─────────────────────────────
+   参考时尚杂志刊头 / 奢侈品牌官网：超大衬线 masthead、高对比字号、
+   大色块、硬边偏移阴影、贴纸标签、竖排刊侧语、描边大字底纹。 */
+
+/* 刊头：超大衬线、紧字距、极紧行高 */
+.masthead {
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+}
+
+/* 硬边偏移阴影：印刷感的海报阴影 */
+.shadow-hard {
+  box-shadow: 4px 4px 0 0 var(--hard-ink, rgba(12, 35, 64, 0.9));
+}
+.shadow-hard-sm {
+  box-shadow: 2.5px 2.5px 0 0 var(--hard-ink, rgba(12, 35, 64, 0.9));
+}
+:root {
+  --hard-ink: rgba(12, 35, 64, 0.92);
+}
+.dark {
+  --hard-ink: rgba(0, 0, 0, 0.85);
+}
+
+/* 描边大字底纹：只留轮廓的装饰字 */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--foreground) 12%, transparent);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 竖排刊侧语：杂志书脊感 */
+.vertical-rl {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* 绯红高亮块：主标题重点词的「荧光笔」压印 */
+.ink-highlight {
+  background: linear-gradient(transparent 58%, var(--crimson-soft) 58%, var(--crimson-soft) 92%, transparent 92%);
+  padding-inline: 0.08em;
+}
+/* 天蓝高亮变体 */
+.ink-highlight-sky {
+  background: linear-gradient(transparent 58%, var(--sky-soft) 58%, var(--sky-soft) 92%, transparent 92%);
+  padding-inline: 0.08em;
+}
+
+/* ─── 品牌 Logo 3.0（时尚极简：碗弧 + 绯红点）的用墨 ─── */
+.logo-ink {
+  stroke: #16335c;
+}
+.dark .logo-ink {
+  stroke: #dce9f8;
+}
+.logo-accent {
+  stroke: var(--crimson, #d8362a);
+}
+/* 绯红实心点：Logo 3.0 的那份「工作」 */
+.logo-accent-fill {
+  fill: var(--crimson, #d8362a);
+}
+.dark .logo-accent-fill {
+  fill: #e0493c;
+}
+/* hover：点往碗里再坠一点（非 animated 场景的轻反馈，保留旧类的兼容写法） */
+.logo-drop {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.group:hover .logo-drop,
+a:hover .logo-drop,
+button:hover .logo-drop {
+  transform: translateY(3px) rotate(2deg);
+}
+/* 杂志衬线刊头字：中文时尚大刊的粗宋体栈（沙箱内已装 Noto Serif SC Black） */
+.font-masthead {
+  font-family: "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+}
+
+/* 贴纸标签：微微歪斜的印刷贴纸 */
+.sticker-tag {
+  transform: rotate(-2.5deg);
+  transform-origin: center;
+}
+.sticker-tag-r {
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+
+/* 双细线分隔：报刊双规线 */
+.rule-double {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.rule-double::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 2px;
+  border-top: 1px solid var(--border);
+}
+
+/* 编辑风编号：绯红衬线斜体（01 / 02 …） */
+.section-no {
+  color: var(--crimson);
+  font-style: italic;
+}
+
+/* 大色块（奢侈品牌官网的全屏色带）：墨蓝块 */
+.block-navy {
+  background: var(--navy-block);
+  color: #dfe9f5;
+}
+
+/* 细滚动条 */
+.scroll-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #b9cde2;
+  border-radius: 999px;
+}
+.scroll-thin::-webkit-scrollbar-thumb:hover {
+  background: #9db8d3;
+}
+.dark .scroll-thin::-webkit-scrollbar-thumb {
+  background: #294a73;
+}
+.dark .scroll-thin::-webkit-scrollbar-thumb:hover {
+  background: #3a5f8d;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 横向滚动区两侧渐隐 */
+.fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+}
+
+/* 编辑部小字距标签 */
+.kicker {
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* 行业封面图底色兜底：淡蓝纸面 */
+.cover-img {
+  background: linear-gradient(135deg, #d9e9f9 0%, #eef4fb 100%);
+}
+.dark .cover-img {
+  background: linear-gradient(135deg, #12294a 0%, #0d2540 100%);
+}
+
+/* 暗色下的封面插画：压暗亮度避免刺眼 */
+.dark .art-img {
+  filter: brightness(0.85) saturate(0.94);
+}
+
+/* ── 滚动叙事（三步开饭）动效 ───────────────────────────── */
+/* 叙事卡片进入视口时的默认态由 framer-motion 控制；这里只放装饰动画 */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.float-soft {
+  animation: float-soft 3.2s ease-in-out infinite;
+}
+
+/* ── 封面（Landing）动效 ─────────────────────────────
+   ken-burns：封面风景照 18s 极缓推近（ alternate 循环），画布有呼吸感；
+   cover-arrow：向下滚动引导箭头浮动；
+   marquee：底部今日企业名单无缝跑马灯（内容双份、translateX -50% 成环） */
+@keyframes ken-burns {
+  from {
+    transform: scale(1.02) translateY(0);
+  }
+  to {
+    transform: scale(1.1) translateY(-1.2%);
+  }
+}
+.ken-burns {
+  animation: ken-burns 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes cover-arrow {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(7px);
+    opacity: 0.5;
+  }
+}
+.cover-arrow {
+  animation: cover-arrow 1.9s ease-in-out infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* 列表行 hover 左侧声部色条：从 0 高度展开的印刷标记 */
+.row-mark {
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 3px;
+  border-radius: 999px;
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.22s ease-out;
+}
+.group:hover .row-mark {
+  transform: scaleY(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ken-burns,
+  .cover-arrow,
+  .marquee-track,
+  .float-soft {
+    animation: none;
+  }
+}
+
+/* ── 饭碗吉祥物「饭饭」的动画 ─────────────────────────────
+   蒸汽三缕错峰上升；cook 颠锅摇摆；happy 开饭弹跳。
+   prefers-reduced-motion 下静止。 */
+.bowl-steam path {
+  opacity: 0;
+  animation: bowl-steam 2.8s ease-in-out infinite;
+}
+.bowl-steam path:nth-child(2) {
+  animation-delay: 0.9s;
+}
+.bowl-steam path:nth-child(3) {
+  animation-delay: 1.8s;
+}
+@keyframes bowl-steam {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  35% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+.bowl-cook {
+  animation: bowl-wiggle 1s ease-in-out infinite;
+  transform-origin: 50% 82%;
+}
+@keyframes bowl-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3.5deg);
+  }
+  75% {
+    transform: rotate(3.5deg);
+  }
+}
+.bowl-happy {
+  animation: bowl-bounce 1.6s ease-in-out infinite;
+  transform-origin: 50% 82%;
+}
+@keyframes bowl-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-2.5px);
+  }
+  60% {
+    transform: translateY(-1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bowl-steam path,
+  .bowl-cook,
+  .bowl-happy,
+  .float-soft {
+    animation: none;
+  }
+  .bowl-steam path {
+    opacity: 0.7;
+  }
+}
+
+/* ── 封面 v3 · 时尚杂志留白刊头（Task 24-e）──────────────────────
+   大面积纯色留白（暖米白纸面 / 墨蓝夜纸）+ 衬线粗宋大字刊头。
+   动效只保留三种优雅动：
+   masthead-line：细规线从中缝向两侧缓慢展开（入场一次）；
+   watermark-arc：背景巨大碗弧水印极缓漂移（制造留白纵深）；
+   logo-dot-fall：Logo 绯红点落入碗中（品牌叙事，见上方 Logo 区）。
+   高光带（sheen）/ 玻璃流光（flow）已按用户反馈整体移除。 */
+.masthead-line {
+  transform-origin: center;
+  animation: masthead-line 2.6s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+@keyframes masthead-line {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.watermark-arc {
+  animation: watermark-drift 46s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes watermark-drift {
+  from {
+    transform: translateY(-1.6%);
+  }
+  to {
+    transform: translateY(2.4%);
+  }
+}
+
+/* 纸面光感：极淡的两团柔光，让纯色底不至于死平 */
+.paper-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(42% 30% at 24% 18%, rgba(216, 54, 42, 0.05), transparent 70%),
+    radial-gradient(52% 40% at 78% 82%, rgba(120, 160, 210, 0.1), transparent 72%);
+  pointer-events: none;
+}
+.dark .paper-light::before {
+  background:
+    radial-gradient(42% 30% at 24% 18%, rgba(216, 54, 42, 0.07), transparent 70%),
+    radial-gradient(52% 40% at 78% 82%, rgba(70, 110, 170, 0.1), transparent 72%);
+}
+
+/* 落点涟漪：Logo 绯红点入碗瞬间的一圈水痕（4.8s 与 animateMotion 同周期，
+   30% 落碗 → 泛起 → 46% 散尽；仅 animated 模式渲染） */
+.logo-splash {
+  stroke: color-mix(in srgb, var(--crimson) 72%, transparent);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: logo-splash 4.8s ease-out infinite;
+}
+@keyframes logo-splash {
+  0%,
+  29% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  33% {
+    opacity: 0.85;
+    transform: scale(0.75);
+  }
+  46% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+/* ── 毛玻璃内容面板 ─────────────────────────────────
+   所有 bg-card 面板统一加 backdrop-blur：背景海浪动效透过卡片可见，
+   文字对比度由 --card 半透明底色保证（毛玻璃，不是磨砂白墙）。
+   backdrop-filter 元素较多，模糊半径收敛在 10px 保性能。 */
+@supports (backdrop-filter: blur(1px)) {
+  .bg-card {
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  }
+}
+
+/* ── 全站海浪背景 · v3（实拍视频素材 + 太阳直射点光效）──────
+   fixed 全屏的实拍海浪视频（public/videos/ocean-waves.mp4 · Pexels
+   免费商用授权），其上叠四层光效——颜色由组件每秒按服务器校准的
+   北京时间与太阳直射点（Spencer 公式）写入 CSS 变量，@property 注册
+   后平滑过渡：① 时段染色（九档光色连续插值）② 夜幕压暗 ③ 星空
+   ④ 太阳/月亮光斑。光效三档 soft/normal/blaze 调染色强度。
+   z-index -2 —— 绘在 body 纸面之上。 */
+
+@property --o-sky1 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #8ec2ee;
+}
+@property --o-sky2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f0f8ff;
+}
+@property --o-sea1 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #5f9dcb;
+}
+@property --o-sea2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #173a60;
+}
+@property --o-sun {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 252, 240, 0.75);
+}
+@property --sun-x {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+@property --sun-y {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 16%;
+}
+@property --sun-size {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.85;
+}
+@property --tint-o {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.3;
+}
+@property --night-o {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --stars-o {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.ocean-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 1;
+  transition:
+    --o-sky1 2.2s ease,
+    --o-sky2 2.2s ease,
+    --o-sea1 2.2s ease,
+    --o-sea2 2.2s ease,
+    --o-sun 2.2s ease,
+    --sun-x 2.2s ease,
+    --sun-y 2.2s ease,
+    --sun-size 2.2s ease,
+    --tint-o 1.6s ease,
+    --night-o 2.2s ease,
+    --stars-o 2.2s ease;
+}
+.dark .ocean-wrap {
+  opacity: 0.92;
+}
+/* 实拍视频：四段按时段交叉淡入，object-cover 铺满 + 微放大留视差余量；
+   轻微提亮提饱和——背景视频要透过罩层仍能看清浪的起伏 */
+.ocean-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: translateY(calc(var(--sea-shift, 0) * -4vh)) scale(1.07);
+  filter: brightness(1.08) saturate(1.1);
+  transition: opacity 2.5s ease;
+}
+.ocean-video-active {
+  opacity: 1;
+}
+/* 时段染色：九档光色罩层——太阳越低垂染得越浓，正午轻轻提亮 */
+.ocean-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--o-sky1),
+    var(--o-sky2) 44%,
+    var(--o-sea1) 52%,
+    var(--o-sea2)
+  );
+  opacity: var(--tint-o, 0.3);
+}
+/* 可读性薄纱（Task 28-d）：直接坐在海浪上的文字（各页页头/页脚）垫一层柔光——
+   白纱全天候兜底：傍晚/夜间海浪压暗后，深墨文字仍踩在浅底上；
+   中段 0.62 仍透出四成浪形；文字区（上/下）接近纸面。
+   暗色主题换深纱。位于染色层之上、内容层之下。 */
+.ocean-veil {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  /* 白纱强度乘 --veil-k：夜里由 JS 按「月亮接管程度」衰减到 0.62 起——
+     夜素材与月光特征要透出来，别把月光海洗成白昼感；裸文字区可读性
+     由衰减后仍有 0.38~0.55 的白纱 + 内容卡片（bg-card/70）双重兜底 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, calc(0.88 * var(--veil-k, 1))),
+    rgba(255, 255, 255, calc(0.74 * var(--veil-k, 1))) 30%,
+    rgba(255, 255, 255, calc(0.62 * var(--veil-k, 1))) 55%,
+    rgba(255, 255, 255, calc(0.66 * var(--veil-k, 1))) 78%,
+    rgba(255, 255, 255, calc(0.78 * var(--veil-k, 1)))
+  );
+}
+/* 层序修正：浅色主题下夜幕曾压在白纱之上，日落后把文字底垫染成深蓝——
+   现夜幕沉到纱下只压暗视频，白纱再兜底，深夜浅色主题保持「暮色」而非「墨夜」 */
+.ocean-night {
+  z-index: 1;
+}
+.ocean-stars,
+.ocean-sun {
+  z-index: 3;
+}
+.dark .ocean-veil {
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 26, 48, 0.85),
+    rgba(8, 26, 48, 0.6) 30%,
+    rgba(8, 26, 48, 0.35) 55%,
+    rgba(8, 26, 48, 0.45) 78%,
+    rgba(8, 26, 48, 0.65)
+  );
+}
+/* 夜幕压暗：太阳落山后视频渐暗，星光月光接管 */
+.ocean-night {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(4, 14, 30, 0.9), rgba(4, 14, 30, 0.72));
+  opacity: var(--night-o, 0);
+}
+/* 星空：夜色权重 --stars-o 驱动（太阳落到地平线下渐现），整层缓慢明灭 */
+.ocean-stars {
+  position: absolute;
+  inset: 0 0 40% 0;
+  opacity: var(--stars-o, 0);
+  background-image:
+    radial-gradient(1.6px 1.6px at 8% 18%, rgba(255, 255, 255, 0.95), transparent 62%),
+    radial-gradient(1.2px 1.2px at 16% 42%, rgba(255, 255, 255, 0.8), transparent 62%),
+    radial-gradient(1.8px 1.8px at 24% 12%, rgba(255, 255, 255, 0.9), transparent 62%),
+    radial-gradient(1.1px 1.1px at 31% 55%, rgba(255, 255, 255, 0.7), transparent 62%),
+    radial-gradient(1.5px 1.5px at 39% 25%, rgba(255, 255, 255, 0.85), transparent 62%),
+    radial-gradient(1.2px 1.2px at 47% 8%, rgba(255, 255, 255, 0.8), transparent 62%),
+    radial-gradient(1.7px 1.7px at 55% 38%, rgba(255, 255, 255, 0.9), transparent 62%),
+    radial-gradient(1.1px 1.1px at 62% 18%, rgba(255, 255, 255, 0.75), transparent 62%),
+    radial-gradient(1.4px 1.4px at 69% 50%, rgba(255, 255, 255, 0.85), transparent 62%),
+    radial-gradient(1.8px 1.8px at 76% 10%, rgba(255, 255, 255, 0.95), transparent 62%),
+    radial-gradient(1.2px 1.2px at 83% 30%, rgba(255, 255, 255, 0.8), transparent 62%),
+    radial-gradient(1.5px 1.5px at 90% 46%, rgba(255, 255, 255, 0.85), transparent 62%),
+    radial-gradient(1.1px 1.1px at 95% 14%, rgba(255, 255, 255, 0.7), transparent 62%),
+    radial-gradient(1.3px 1.3px at 12% 62%, rgba(255, 255, 255, 0.65), transparent 62%),
+    radial-gradient(1.2px 1.2px at 58% 62%, rgba(255, 255, 255, 0.6), transparent 62%),
+    radial-gradient(1.1px 1.1px at 86% 62%, rgba(255, 255, 255, 0.65), transparent 62%);
+  animation: stars-twinkle 5.5s ease-in-out infinite;
+}
+@keyframes stars-twinkle {
+  0%,
+  100% {
+    opacity: calc(var(--stars-o, 0) * 0.7);
+  }
+  50% {
+    opacity: var(--stars-o, 0);
+  }
+}
+/* 太阳/月亮光斑：方位随太阳直射点（--sun-x 东→西、--sun-y 地平线→高悬），
+   低垂大而暖（--sun-size 大），高悬小而亮，夜里化作小月亮 */
+.ocean-sun {
+  position: absolute;
+  top: var(--sun-y);
+  left: var(--sun-x);
+  width: calc(58vmin * var(--sun-size, 1));
+  height: calc(58vmin * var(--sun-size, 1));
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, var(--o-sun), transparent 72%);
+  filter: blur(6px);
+}
+
+/* ── 封面 v6 · 巨碗开饭（Task 30）────────────────────────
+   左半幅 = 巨大的饭来 Logo：绯红小球垂直弹动落碗，衬呼吸光晕；
+   右半幅 = 刊头文字。封面铺纯色明亮纸面，不透视频背景。 */
+.logo-halo {
+  background: radial-gradient(closest-side, rgba(255, 244, 214, 0.55), transparent 72%);
+  filter: blur(10px);
+  animation: halo-breathe 7s ease-in-out infinite;
+}
+.dark .logo-halo {
+  background: radial-gradient(closest-side, rgba(255, 236, 200, 0.3), transparent 72%);
+}
+@keyframes halo-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* ── 视图环境光（Task 25-d）：五个视图各有专属底色气氛 ─────────
+   fixed 全屏薄雾，跟随 tab 淡入淡出，让页面底色不再单一。 */
+.fanlai-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.ambient-today {
+  background:
+    radial-gradient(900px 480px at 10% -6%, rgba(216, 54, 42, 0.08), transparent 68%),
+    radial-gradient(720px 430px at 90% 32%, rgba(216, 54, 42, 0.045), transparent 70%),
+    linear-gradient(to bottom, transparent 58%, rgba(216, 54, 42, 0.03));
+}
+.ambient-directory {
+  background:
+    radial-gradient(920px 500px at 88% -8%, rgba(30, 136, 199, 0.1), transparent 70%),
+    radial-gradient(700px 420px at 6% 40%, rgba(30, 136, 199, 0.05), transparent 68%),
+    linear-gradient(to bottom, transparent 60%, rgba(30, 136, 199, 0.035));
+}
+.ambient-tracker {
+  background:
+    radial-gradient(900px 480px at 8% -6%, rgba(13, 138, 128, 0.09), transparent 68%),
+    radial-gradient(740px 440px at 92% 36%, rgba(13, 138, 128, 0.05), transparent 70%),
+    linear-gradient(to bottom, transparent 58%, rgba(13, 138, 128, 0.03));
+}
+.ambient-shortlist {
+  background:
+    radial-gradient(900px 480px at 86% -6%, rgba(79, 127, 181, 0.1), transparent 70%),
+    radial-gradient(700px 430px at 8% 42%, rgba(79, 127, 181, 0.05), transparent 68%),
+    linear-gradient(to bottom, transparent 60%, rgba(79, 127, 181, 0.035));
+}
+.ambient-insights {
+  background:
+    radial-gradient(960px 520px at 12% -8%, rgba(14, 42, 82, 0.1), transparent 70%),
+    radial-gradient(760px 460px at 94% 40%, rgba(14, 42, 82, 0.06), transparent 72%),
+    linear-gradient(to bottom, transparent 55%, rgba(14, 42, 82, 0.045));
+}
+.ambient-deadlines {
+  background:
+    radial-gradient(920px 500px at 14% -6%, rgba(154, 107, 31, 0.09), transparent 68%),
+    radial-gradient(720px 430px at 90% 38%, rgba(154, 107, 31, 0.05), transparent 70%),
+    linear-gradient(to bottom, transparent 58%, rgba(154, 107, 31, 0.03));
+}
+.dark .ambient-today {
+  background:
+    radial-gradient(900px 480px at 10% -6%, rgba(239, 106, 90, 0.09), transparent 68%),
+    linear-gradient(to bottom, transparent 58%, rgba(239, 106, 90, 0.04));
+}
+.dark .ambient-directory {
+  background:
+    radial-gradient(920px 500px at 88% -8%, rgba(92, 184, 232, 0.09), transparent 70%),
+    linear-gradient(to bottom, transparent 60%, rgba(92, 184, 232, 0.04));
+}
+.dark .ambient-tracker {
+  background:
+    radial-gradient(900px 480px at 8% -6%, rgba(47, 179, 167, 0.09), transparent 68%),
+    linear-gradient(to bottom, transparent 58%, rgba(47, 179, 167, 0.04));
+}
+.dark .ambient-shortlist {
+  background:
+    radial-gradient(900px 480px at 86% -6%, rgba(143, 180, 217, 0.09), transparent 70%),
+    linear-gradient(to bottom, transparent 60%, rgba(143, 180, 217, 0.04));
+}
+.dark .ambient-insights {
+  background:
+    radial-gradient(960px 520px at 12% -8%, rgba(127, 179, 232, 0.08), transparent 70%),
+    linear-gradient(to bottom, transparent 55%, rgba(127, 179, 232, 0.04));
+}
+.dark .ambient-deadlines {
+  background:
+    radial-gradient(920px 500px at 14% -6%, rgba(217, 164, 78, 0.08), transparent 68%),
+    linear-gradient(to bottom, transparent 58%, rgba(217, 164, 78, 0.04));
+}
+
+/* ── 秋招心声墙（Task 25-g）：三列纵向慢滚的匿名引用 ───────── */
+.voice-track {
+  animation: voice-scroll var(--spd, 30s) linear infinite;
+  will-change: transform;
+}
+@keyframes voice-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+.voice-col:hover .voice-track {
+  animation-play-state: paused;
+}
+.voice-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .masthead-line,
+  .watermark-arc,
+  .logo-splash,
+  .ocean-stars,
+  .logo-halo,
+  .voice-track {
+    animation: none;
+  }
+  .masthead-line {
+    transform: none;
+    opacity: 1;
+  }
+  .ocean-wrap {
+    transition: none;
+  }
+  .logo-splash {
+    opacity: 0;
+  }
+}

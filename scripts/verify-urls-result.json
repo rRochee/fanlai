@@ -1,0 +1,225 @@
+{
+  "verifiedAt": "2026-09-03T05:42:15.680Z",
+  "stat": {
+    "OK": 11,
+    "SOFT": 3,
+    "REDIRECT": 0,
+    "FAIL": 2
+  },
+  "entries": [
+    {
+      "url": "https://careers.walmart.com.cn",
+      "status": null,
+      "finalUrl": null,
+      "crossApex": false,
+      "ms": 9001,
+      "category": "FAIL",
+      "note": "超时(9s)；复核轮仍 FAIL",
+      "companies": [
+        "山姆会员店"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://hr.hanslaser.com",
+      "status": 200,
+      "finalUrl": "https://hr.hanslaser.com/",
+      "crossApex": false,
+      "ms": 305,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "大族激光"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://careers.oppo.com",
+      "status": 200,
+      "finalUrl": "https://careers.oppo.com/",
+      "crossApex": false,
+      "ms": 56,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "OPPO"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://hr.vivo.com",
+      "status": 200,
+      "finalUrl": "https://hr.vivo.com/",
+      "crossApex": false,
+      "ms": 121,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "vivo"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://careers.dhl.com",
+      "status": 200,
+      "finalUrl": "https://careers.dhl.com/apac/tw",
+      "crossApex": false,
+      "ms": 1660,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "DHL中国"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://campus.wps.cn",
+      "status": 200,
+      "finalUrl": "https://campus.wps.cn/",
+      "crossApex": false,
+      "ms": 165,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "金山办公"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://careers.trip.com",
+      "status": 200,
+      "finalUrl": "https://careers.trip.com/",
+      "crossApex": false,
+      "ms": 345,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "携程集团"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://campus.bilibili.com",
+      "status": 200,
+      "finalUrl": "https://jobs.bilibili.com/home",
+      "crossApex": false,
+      "ms": 255,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "哔哩哔哩"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://join.mihoyo.com",
+      "status": 200,
+      "finalUrl": "https://join.mihoyo.com/",
+      "crossApex": false,
+      "ms": 381,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "米哈游"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://campus.pingan.com",
+      "status": 200,
+      "finalUrl": "https://campus.pingan.com/",
+      "crossApex": false,
+      "ms": 280,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "中国平安"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://polycn.com",
+      "status": 200,
+      "finalUrl": "https://polycn.com/",
+      "crossApex": false,
+      "ms": 231,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "保利发展"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://zhaopin.ccccltd.cn",
+      "status": 200,
+      "finalUrl": "https://zhaopin.ccccltd.cn/",
+      "crossApex": false,
+      "ms": 964,
+      "category": "OK",
+      "note": "",
+      "companies": [
+        "中国交建"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://zhaopin.sgcc.com.cn",
+      "status": 412,
+      "finalUrl": "https://zhaopin.sgcc.com.cn/",
+      "crossApex": false,
+      "ms": 256,
+      "category": "SOFT",
+      "note": "",
+      "companies": [
+        "国家电网"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://www.cnpc.com.cn",
+      "status": 412,
+      "finalUrl": "https://www.cnpc.com.cn/",
+      "crossApex": false,
+      "ms": 225,
+      "category": "SOFT",
+      "note": "",
+      "companies": [
+        "中国石油"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://job.sinopec.com",
+      "status": 200,
+      "finalUrl": "https://job.sinopec.com/",
+      "crossApex": false,
+      "ms": 2977,
+      "category": "SOFT",
+      "note": "HTTPS 证书异常（Error: unable to verify the first certificate），http 可达",
+      "companies": [
+        "中国石化"
+      ],
+      "repairs": []
+    },
+    {
+      "url": "https://www.chinaunicom.com.cn",
+      "status": null,
+      "finalUrl": null,
+      "crossApex": false,
+      "ms": 73,
+      "category": "FAIL",
+      "note": "Error/ECONNRESET；复核轮仍 FAIL",
+      "companies": [
+        "中国联通"
+      ],
+      "repairs": [
+        {
+          "url": "https://www.chinaunicom.com.cn",
+          "status": 200,
+          "ms": 251
+        }
+      ]
+    }
+  ]
+}
